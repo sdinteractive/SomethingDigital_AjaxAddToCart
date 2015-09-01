@@ -4,7 +4,9 @@ class SomethingDigital_AjaxAddtoCart_Model_Observer
 {
   public function ajaxAction(Varien_Event_Observer $observer)
   {
+    $response         = Mage::app()->getResponse();
     $controllerAction = $observer->getControllerAction();
+
     if(!$controllerAction->getRequest()->isAjax()) {
       return;
     }
@@ -39,11 +41,16 @@ class SomethingDigital_AjaxAddtoCart_Model_Observer
         $response['message'] = '<ul class="messages"><li class="error-msg"><ul><li class="out-of-stock-error">' . $response['message'] . '</li></ul></li></ul>';
     }
 
-    $mageResponse = Mage::app()->getResponse();
-    $mageResponse->clearAllHeaders()
-                 ->setBody($coreHelper->jsonEncode($response))
-                 ->setHeader('Content-Type', 'application/json')
-                 ->setHttpResponseCode(200)
-                 ->sendHeaders();
+    $response->clearAllHeaders();
+
+    if($response['status']==='SUCCESS'){
+      $response->setHttpResponseCode(200);
+    } else {
+      $respose->setHttpResponseCode(520);
+    }
+
+    $response->setBody($coreHelper->jsonEncode($response))
+      ->setHeader('Content-Type', 'application/json')
+      ->sendHeaders();
   }
 }
