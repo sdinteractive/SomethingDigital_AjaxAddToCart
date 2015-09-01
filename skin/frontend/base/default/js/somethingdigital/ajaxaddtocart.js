@@ -1,5 +1,10 @@
 // 'use strict';
 
+
+var loadingModal = $j('<div class="loadingModal"/>');
+$j('body').append(loadingModal);
+
+
 productAddToCartForm.submit = productAddToCartForm.submit.wrap(function(button, url){
   if (this.validator.validate()) {
     $j('body').addClass('locked');
@@ -44,26 +49,3 @@ productAddToCartForm.submit = productAddToCartForm.submit.wrap(function(button, 
     }
   }
   }.bind(productAddToCartForm));
-
-// var AjaxAddtoCart = Class.create();
-// AjaxAddtoCart.prototype = {
-
-//   initialize: function() {
-//     this.createLoadingModal();
-//     console.log('bada boom');////////////////////////////////////////////////////////////////////////////////////////// console.log Right Here ////////////////////////////////
-//   },
-//   submitAddtoCart: function() {
-    
-//   },
-//   createLoadingModal: function() {
-//     let loadingModal = new Element('div', {id: 'loading-modal', class: 'loading-modal'});
-//     document.body.appendChild(loadingModal);
-//   },
-//   showLoadingModal: function() {
-
-//   }
-// }
-
-// Event.observe(document, 'dom:loaded', function() {
-//     new AjaxAddtoCart();
-// });
