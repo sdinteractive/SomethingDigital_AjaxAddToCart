@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <SomethingDigital_AjaxAddtoCart>
+      <active>true</active>
+      <codePool>community</codePool>
+    </SomethingDigital_AjaxAddtoCart>
+  </modules>
+</config>

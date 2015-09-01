@@ -1,0 +1,10 @@
+# app
+app/code/community/SomethingDigital/AjaxAddtoCart
+app/design/frontend/base/default/layout/somethingdigital
+app/design/frontend/base/default/template/somethingdigital
+
+# skin
+skin/frontend/base/default/js/somethingdigital
+
+# etc
+app/etc/modules/SomethingDigital_AjaxAddtoCart.xml

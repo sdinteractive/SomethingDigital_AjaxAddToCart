@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<layout>
+  <default>
+    <reference name="head">
+      <action method="addItem">
+        <type>skin_js</type>
+        <file>js/somethingdigital/ajaxaddtocart.js</file>
+      </action>
+    </reference>
+  </default>
+</layout>
