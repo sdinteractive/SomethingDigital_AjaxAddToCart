@@ -1,10 +1,5 @@
 // 'use strict';
 
-
-var loadingModal = $j('<div class="loadingModal"/>');
-$j('body').append(loadingModal);
-
-
 productAddToCartForm.submit = productAddToCartForm.submit.wrap(function(button, url){
   if (this.validator.validate()) {
     $j('body').addClass('locked');
