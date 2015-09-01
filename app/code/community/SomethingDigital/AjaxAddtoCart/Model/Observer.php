@@ -37,7 +37,11 @@ class SomethingDigital_AjaxAddtoCart_Model_Observer
     }
     if($response['status'] == 'ERROR'){
         $response['message'] = '<ul class="messages"><li class="error-msg"><ul><li class="out-of-stock-error">' . $response['message'] . '</li></ul></li></ul>';
-    }            
-    $controllerAction->getResponse()->setBody($coreHelper->jsonEncode($response));
+    }
+
+  Mage::app()->getResponse()->clearAllHeaders();
+    Mage::app()->getResponse()->setBody($coreHelper->jsonEncode($response))
+    ->setHeader('Content-Type', 'application/json')
+      ->setHttpResponseCode(200)->sendHeaders();
   }
 }
