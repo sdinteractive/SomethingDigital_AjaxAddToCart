@@ -14,14 +14,14 @@
       </updates>
     </layout>
     <events>
-      <controller_action_predispatch_checkout_cart_add>
+      <controller_action_postdispatch_checkout_cart_add>
         <observers>
           <sd_ajaxaddtocart>
             <class>SomethingDigital_AjaxAddtoCart_Model_Observer</class>
             <method>ajaxAction</method>
           </sd_ajaxaddtocart>
         </observers>
-      </controller_action_predispatch_checkout_cart_add>
+      </controller_action_postdispatch_checkout_cart_add>
     </events>
   </frontend>
 </config>
