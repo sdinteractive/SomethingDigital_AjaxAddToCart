@@ -18,7 +18,7 @@
         <observers>
           <sd_ajaxaddtocart>
             <class>SomethingDigital_AjaxAddtoCart_Model_Observer</class>
-            <method>ajaxAction</method>
+            <method>controllerActionPostdispatchCheckoutCartAdd</method>
           </sd_ajaxaddtocart>
         </observers>
       </controller_action_postdispatch_checkout_cart_add>
