@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <config>
   <modules>
-    <SomethingDigital_AjaxAddtoCart>
+    <SomethingDigital_AjaxAddToCart>
       <version>1.1.0</version>
-    </SomethingDigital_AjaxAddtoCart>
+    </SomethingDigital_AjaxAddToCart>
   </modules>
   <frontend>
     <layout>
@@ -17,7 +17,7 @@
       <controller_action_postdispatch_checkout_cart_add>
         <observers>
           <sd_ajaxaddtocart>
-            <class>SomethingDigital_AjaxAddtoCart_Model_Observer</class>
+            <class>SomethingDigital_AjaxAddToCart_Model_Observer</class>
             <method>ajaxAction</method>
           </sd_ajaxaddtocart>
         </observers>
