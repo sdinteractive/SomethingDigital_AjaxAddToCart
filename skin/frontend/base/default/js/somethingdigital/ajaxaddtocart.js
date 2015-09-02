@@ -39,9 +39,18 @@
           $('.skip-cart').html(skipCartHtml).trigger('click'); 
         })
         .fail(function(data){
+
           //display failure message
           $('.col-main').prepend(data.message);
-          $('.col-main .messages').delay(5000).fadeOut(function(){$(this).remove();});
+          
+          //remove the failure message after 5s
+          $('.col-main .messages')
+            .delay(5000)
+            .fadeOut(function(){
+                $(this).remove();
+            });
+
+          //unset the modal block
           loadingModal.remove()
         })
         .always(loadingModal.remove);
