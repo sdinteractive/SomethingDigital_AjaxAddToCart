@@ -1,4 +1,7 @@
-// 'use strict';
+'use strict';
+
+var loadingModal = $j('<div class="loadingModal"/>');
+$j('body').append(loadingModal);
 
 productAddToCartForm.submit = productAddToCartForm.submit.wrap(function(button, url){
   if (this.validator.validate()) {
@@ -25,7 +28,7 @@ productAddToCartForm.submit = productAddToCartForm.submit.wrap(function(button, 
         $j('body').removeClass('locked');
         $j('html,body').animate({scrollTop: 0}, 250);
         if (data.status === "SUCCESS") {
-          $updatedCart = $j(data.minicart_head);
+          var $updatedCart = $j(data.minicart_head);
           $j('#header-cart').html($updatedCart.find('#header-cart').html());
           $j('.skip-cart').html($updatedCart.find('.skip-cart').html()).trigger('click'); 
 
