@@ -1,21 +1,3 @@
-SomethingDigital_AjaxAddtoCart
-==
-
-Objective
---
-
-The aim is to provide a drop-in replacement for the tradition card add form post, which requires a redirect in vanilla Magento.
-
-Requirements
---
-
-- Magento 1.9+ (RWD theme compatibility)
-- jQuery
-
-
-License
---
-
 The MIT License
 
 Copyright (c) 2015 Something Digital http://www.somethingdigital.com
