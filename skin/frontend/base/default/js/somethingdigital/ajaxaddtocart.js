@@ -5,12 +5,13 @@
   $body = $('body');
 
   productAddToCartForm.submit = productAddToCartForm.submit.wrap(function(button, url){
+    var form   = this.form;
+    var oldUrl = form.action;
+    var e      = null;
+
     if (this.validator.validate()) {
       $body.addClass('locked');
       loadingModal.show();
-      var form = this.form,
-          oldUrl = form.action,
-          e = null;
 
       if (url) {
         form.action = url;
@@ -20,19 +21,22 @@
         $.ajax({
           url: form.action,
           dataType: 'json',
-          type : 'post',
+          type: 'post',
           data: $('#product_addtocart_form').serialize()
         })
         .done(function(data){
+          var $updatedCart   = $(data.minicart_head);
+          var headerCartHtml = $updatedCart.find('#header-cart').html();
+          var skipCartHtml   = $updatedCart.find('.skip-cart').html();
+
           $body.removeClass('locked');
-          var $updatedCart = $(data.minicart_head);
 
           //TODO: make animation scroll optional
           $('html,body').animate({scrollTop: 0}, 250);
 
           //apply the minicart update and unfurl it
-          $('#header-cart').html($updatedCart.find('#header-cart').html());
-          $('.skip-cart').html($updatedCart.find('.skip-cart').html()).trigger('click'); 
+          $('#header-cart').html(headerCartHtml);
+          $('.skip-cart').html(skipCartHtml).trigger('click'); 
         })
         .fail(function(data){
           //display failure message
