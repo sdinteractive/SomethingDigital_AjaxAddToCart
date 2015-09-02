@@ -1,5 +1,6 @@
+#SomethingDigital_AjaxAddToCart
 # app
-app/code/community/SomethingDigital/AjaxAddtoCart
+app/code/community/SomethingDigital/AjaxAddToCart
 app/design/frontend/base/default/layout/somethingdigital
 app/design/frontend/base/default/template/somethingdigital
 
@@ -7,4 +8,4 @@ app/design/frontend/base/default/template/somethingdigital
 skin/frontend/base/default/js/somethingdigital
 
 # etc
-app/etc/modules/SomethingDigital_AjaxAddtoCart.xml
+app/etc/modules/SomethingDigital_AjaxAddToCart.xml

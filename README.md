@@ -1,4 +1,4 @@
-SomethingDigital_AjaxAddtoCart
+SomethingDigital_AjaxAddToCart
 ==
 
 Objective

@@ -1,6 +1,6 @@
 <?php
 
-class SomethingDigital_AjaxAddtoCart_Model_Observer 
+class SomethingDigital_AjaxAddToCart_Model_Observer 
 {
   const STATUS_ERROR   = 'ERROR';
   const STATUS_SUCCESS = 'SUCCESS';
