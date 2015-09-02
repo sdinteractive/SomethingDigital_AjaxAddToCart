@@ -5,6 +5,8 @@ class SomethingDigital_AjaxAddtoCart_Model_Observer
   public function ajaxAction(Varien_Event_Observer $observer)
   {
     $controllerAction = $observer->getControllerAction();
+    $response         = Mage::app()->getResponse();
+    $result           = [];
 
     if(!$controllerAction->getRequest()->isAjax()) {
       return;
@@ -18,38 +20,36 @@ class SomethingDigital_AjaxAddtoCart_Model_Observer
     $storeId      = Mage::app()->getStore()->getId();
     $productId    = $observer->getControllerAction()->getRequest()->getParam('product');
     $product      = $catalogModel->setStoreId($storeId)->load($productId);
-    $repsonse     = array();
 
     try {
       if (!$product) {
-        $response['status'] = 'ERROR';
-        $response['message'] = $coreHelper->__('Unable to find Product ID');
+        $result['status'] = 'ERROR';
+        $result['message'] = $coreHelper->__('Unable to find Product ID');
       }
       $message = $coreHelper->__('%s was added to your shopping cart.', $coreHelper->htmlEscape($product->getName()));
-      $response['status'] = 'SUCCESS';
-      $response['message'] = $message;
+      $result['status'] = 'SUCCESS';
+      $result['message'] = $message;
       $controllerAction->loadLayout();
       $sidebar = $controllerAction->getLayout()->getBlock('minicart_head')->toHtml();
-      $response['minicart_head'] = '<div class="header-minicart">' . $sidebar . '</div>';
+      $result['minicart_head'] = '<div class="header-minicart">' . $sidebar . '</div>';
     } catch(Mage_Core_Exception $e) {
-          $response['status'] = 'ERROR';
-          $response['message'] = $coreHelper->__('Cannot add the item to shopping cart.');
+          $result['status'] = 'ERROR';
+          $result['message'] = $coreHelper->__('Cannot add the item to shopping cart.');
           Mage::logException($e);
     }
-    if($response['status'] == 'ERROR'){
-        $response['message'] = '<ul class="messages"><li class="error-msg"><ul><li class="out-of-stock-error">' . $response['message'] . '</li></ul></li></ul>';
+    if($result['status'] == 'ERROR'){
+        $result['message'] = '<ul class="messages"><li class="error-msg"><ul><li class="out-of-stock-error">' . $result['message'] . '</li></ul></li></ul>';
     }
 
-    $mageResponse = Mage::app()->getResponse();
-    $mageResponse->clearAllHeaders();
+    $response->clearAllHeaders();
 
-    if($response['status']==='SUCCESS'){
-      $mageResponse->setHttpResponseCode(200);
+    if($result['status']==='SUCCESS'){
+      $response->setHttpResponseCode(200);
     } else {
-      $mageResponse->setHttpResponseCode(520);
+      $response->setHttpResponseCode(520);
     }
 
-    $mageResponse->setBody($coreHelper->jsonEncode($response))
+    $response->setBody($coreHelper->jsonEncode($result))
       ->setHeader('Content-Type', 'application/json')
       ->sendHeaders();
   }
