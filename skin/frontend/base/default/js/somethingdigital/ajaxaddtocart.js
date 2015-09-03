@@ -2,7 +2,7 @@
 
 (function($, loadingModal, productAddToCartForm){
 
-  $body = $('body');
+  var $body = $('body');
 
   productAddToCartForm.submit = productAddToCartForm.submit.wrap(function(button, url){
     var form   = this.form;

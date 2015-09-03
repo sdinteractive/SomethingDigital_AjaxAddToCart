@@ -12,14 +12,18 @@ class SomethingDigital_AjaxAddToCart_Model_Observer
    */
   public function controllerActionPostdispatchCheckoutCartAdd(Varien_Event_Observer $observer)
   {
+    /* @var $coreHelper Mage_Core_Helper_Abstract */
+    $coreHelper   = Mage::helper('core');
+
     $controllerAction = $observer->getControllerAction();
     $response         = Mage::app()->getResponse();
     $responseCode     = 200;
+
     if(!$controllerAction->getRequest()->isAjax()) {
       return;
     }
 
-    $result = $this->_buildResponse($observer, $controllerAction);
+    $result = $this->_buildResponse($observer, $controllerAction, $coreHelper);
 
     $response->clearAllHeaders();
     $responseCode = $result['status'] === self::STATUS_SUCCESS ? 200 : 520;
@@ -30,16 +34,12 @@ class SomethingDigital_AjaxAddToCart_Model_Observer
       ->sendHeaders();
   }
 
-  protected function _buildResponse($observer, $controllerAction)
+  protected function _buildResponse($observer, $controllerAction, $coreHelper)
   {
-    $result = [];
-
     /* @var $catalogModel Mage_Core_Model_Catalog_Product */
     $catalogModel = Mage::getModel('catalog/product');
 
-    /* @var $coreHelper Mage_Core_Helper_Abstract */
-    $coreHelper   = Mage::helper('core');
-
+    $result       = [];
     $storeId      = Mage::app()->getStore()->getId();
     $productId    = Mage::app()->getRequest()->getParam('product');
     $product      = $catalogModel->setStoreId($storeId)->load($productId);
