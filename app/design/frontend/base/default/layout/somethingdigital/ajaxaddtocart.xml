@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <layout>
-  <default>
+  <catalog_product_view>
     <reference name="before_body_end">
       <block type="page/html_head" name="extra_js" as="sdJs" after="-" template="somethingdigital/page/html/footer-js.phtml">
           <action method="addItem"><type>skin_js</type><name>js/somethingdigital/ajaxaddtocart.js</name></action>
       </block>
     </reference>
-  </default>
+  </catalog_product_view>
 </layout>
