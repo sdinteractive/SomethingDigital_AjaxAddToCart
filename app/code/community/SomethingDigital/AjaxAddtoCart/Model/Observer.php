@@ -15,12 +15,11 @@ class SomethingDigital_AjaxAddToCart_Model_Observer
     $controllerAction = $observer->getControllerAction();
     $response         = Mage::app()->getResponse();
     $responseCode     = 200;
-
     if(!$controllerAction->getRequest()->isAjax()) {
       return;
     }
 
-    $result = $this->_buildResponse();
+    $result = $this->_buildResponse($observer, $controllerAction);
 
     $response->clearAllHeaders();
     $responseCode = $result['status'] === self::STATUS_SUCCESS ? 200 : 520;
@@ -31,9 +30,8 @@ class SomethingDigital_AjaxAddToCart_Model_Observer
       ->sendHeaders();
   }
 
-  protected function _buildResponse($observer)
+  protected function _buildResponse($observer, $controllerAction)
   {
-
     $result = [];
 
     /* @var $catalogModel Mage_Core_Model_Catalog_Product */
@@ -60,7 +58,7 @@ class SomethingDigital_AjaxAddToCart_Model_Observer
       $result['message'] = $message;
       $controllerAction->loadLayout();
       $sidebar = $controllerAction->getLayout()->getBlock('minicart_head')->toHtml();
-      $result['minicart_head'] = '<div class="header-minicart">' . $sidebar . '</div>';
+      $result['minicart_head'] = '<div class="header-minicart minicart--fixed">' . $sidebar . '</div>';
 
     } catch(Mage_Core_Exception $e) {
 
@@ -68,16 +66,12 @@ class SomethingDigital_AjaxAddToCart_Model_Observer
           $result['message'] = $coreHelper->__('Cannot add the item to shopping cart.');
 
           Mage::logException($e);
-
     }
 
     if($result['status'] === self::STATUS_ERROR){
         $result['message'] = '<ul class="messages"><li class="error-msg"><ul><li class="out-of-stock-error">' . $result['message'] . '</li></ul></li></ul>';
     }
-
+    
     return $result;
-
   }
-
-
 }
