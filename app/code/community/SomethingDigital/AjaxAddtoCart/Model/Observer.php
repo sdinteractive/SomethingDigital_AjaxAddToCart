@@ -1,56 +1,77 @@
 <?php
 
-class SomethingDigital_AjaxAddtoCart_Model_Observer 
+class SomethingDigital_AjaxAddToCart_Model_Observer 
 {
-  public function ajaxAction(Varien_Event_Observer $observer)
+  const STATUS_ERROR   = 'ERROR';
+  const STATUS_SUCCESS = 'SUCCESS';
+
+  /**
+   * Postdispatch for Cart Add Action to sniff for Ajax Add
+   * @param  Varien_Event_Observer $observer 
+   * @return void
+   */
+  public function controllerActionPostdispatchCheckoutCartAdd(Varien_Event_Observer $observer)
   {
+    /* @var $coreHelper Mage_Core_Helper_Abstract */
+    $coreHelper   = Mage::helper('core');
+
     $controllerAction = $observer->getControllerAction();
+    $response         = Mage::app()->getResponse();
+    $responseCode     = 200;
 
     if(!$controllerAction->getRequest()->isAjax()) {
       return;
     }
 
-    /* @var $catalogModel Mage_Core_Model_Catalog_Product */
-    $catalogModel = Mage::getModel('catalog/product');
-    /* @var $catalogModel Mage_Core_Helper_Abstract */
-    $coreHelper   = Mage::helper('core');
+    $result = $this->_buildResponse($observer, $controllerAction, $coreHelper);
 
-    $storeId      = Mage::app()->getStore()->getId();
-    $productId    = $observer->getControllerAction()->getRequest()->getParam('product');
-    $product      = $catalogModel->setStoreId($storeId)->load($productId);
-    $repsonse     = array();
+    $response->clearAllHeaders();
+    $responseCode = $result['status'] === self::STATUS_SUCCESS ? 200 : 520;
+    $response->setHttpResponseCode($responseCode);
 
-    try {
-      if (!$product) {
-        $response['status'] = 'ERROR';
-        $response['message'] = $coreHelper->__('Unable to find Product ID');
-      }
-      $message = $coreHelper->__('%s was added to your shopping cart.', $coreHelper->htmlEscape($product->getName()));
-      $response['status'] = 'SUCCESS';
-      $response['message'] = $message;
-      $controllerAction->loadLayout();
-      $sidebar = $controllerAction->getLayout()->getBlock('minicart_head')->toHtml();
-      $response['minicart_head'] = '<div class="header-minicart">' . $sidebar . '</div>';
-    } catch(Mage_Core_Exception $e) {
-          $response['status'] = 'ERROR';
-          $response['message'] = $coreHelper->__('Cannot add the item to shopping cart.');
-          Mage::logException($e);
-    }
-    if($response['status'] == 'ERROR'){
-        $response['message'] = '<ul class="messages"><li class="error-msg"><ul><li class="out-of-stock-error">' . $response['message'] . '</li></ul></li></ul>';
-    }
-
-    $mageResponse = Mage::app()->getResponse();
-    $mageResponse->clearAllHeaders();
-
-    if($response['status']==='SUCCESS'){
-      $mageResponse->setHttpResponseCode(200);
-    } else {
-      $mageResponse->setHttpResponseCode(520);
-    }
-
-    $mageResponse->setBody($coreHelper->jsonEncode($response))
+    $response->setBody($coreHelper->jsonEncode($result))
       ->setHeader('Content-Type', 'application/json')
       ->sendHeaders();
+  }
+
+  protected function _buildResponse($observer, $controllerAction, $coreHelper)
+  {
+    /* @var $catalogModel Mage_Core_Model_Catalog_Product */
+    $catalogModel = Mage::getModel('catalog/product');
+
+    $result       = [];
+    $storeId      = Mage::app()->getStore()->getId();
+    $productId    = Mage::app()->getRequest()->getParam('product');
+    $product      = $catalogModel->setStoreId($storeId)->load($productId);
+
+    try {
+
+      if (!$product) {
+        $result['status']  = self::STATUS_ERROR;
+        $result['message'] = $coreHelper->__('Unable to find Product ID');
+        return $result;
+      }
+
+      //assemble the message
+      $message = $coreHelper->__('%s was added to your shopping cart.', $coreHelper->htmlEscape($product->getName()));
+      $result['status'] = self::STATUS_SUCCESS;
+      $result['message'] = $message;
+      $controllerAction->loadLayout();
+      $sidebar = $controllerAction->getLayout()->getBlock('minicart_head')->toHtml();
+      $result['minicart_head'] = '<div class="header-minicart minicart--fixed">' . $sidebar . '</div>';
+
+    } catch(Mage_Core_Exception $e) {
+
+          $result['status'] = self::STATUS_ERROR;
+          $result['message'] = $coreHelper->__('Cannot add the item to shopping cart.');
+
+          Mage::logException($e);
+    }
+
+    if($result['status'] === self::STATUS_ERROR){
+        $result['message'] = '<ul class="messages"><li class="error-msg"><ul><li class="out-of-stock-error">' . $result['message'] . '</li></ul></li></ul>';
+    }
+    
+    return $result;
   }
 }
