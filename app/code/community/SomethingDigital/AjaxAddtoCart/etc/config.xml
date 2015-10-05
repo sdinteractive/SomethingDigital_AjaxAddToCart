@@ -9,7 +9,7 @@
     <layout>
       <updates>
         <ajaxaddtocart>
-          <file>somethingdigital/ajaxaddtocart.xml</file>
+          <file>somethingdigital_ajaxaddtocart.xml</file>
         </ajaxaddtocart>
       </updates>
     </layout>
