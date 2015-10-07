@@ -1,11 +1,11 @@
 #SomethingDigital_AjaxAddToCart
 # app
 app/code/community/SomethingDigital/AjaxAddToCart
-app/design/frontend/base/default/layout/somethingdigital
-app/design/frontend/base/default/template/somethingdigital
+app/design/frontend/base/default/layout/somethingdigital_ajaxaddtocart.xml
+app/design/frontend/base/default/template/somethingdigital/ajaxaddtocart
 
 # skin
-skin/frontend/base/default/js/somethingdigital
+skin/frontend/base/default/js/somethingdigital/ajaxaddtocart
 
 # etc
 app/etc/modules/SomethingDigital_AjaxAddToCart.xml
