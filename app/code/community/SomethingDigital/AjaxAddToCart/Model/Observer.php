@@ -29,9 +29,9 @@ class SomethingDigital_AjaxAddToCart_Model_Observer
     $responseCode = $result['status'] === self::STATUS_SUCCESS ? 200 : 520;
     $response->setHttpResponseCode($responseCode);
 
-    $response->setBody($coreHelper->jsonEncode($result))
+    $response->clearHeaders()
       ->setHeader('Content-Type', 'application/json')
-      ->sendHeaders();
+      ->setBody($coreHelper->jsonEncode($result));
   }
 
   protected function _buildResponse($observer, $controllerAction, $coreHelper)

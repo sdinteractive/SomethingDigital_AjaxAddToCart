@@ -30,7 +30,7 @@
                                 $body.removeClass('locked');
 
                                 // If add to cart from quickview, close quickview
-                                if(typeof(window.sdQuickview.close) == "function"
+                                if(typeof(window.sdQuickview) != "undefined"
                                     && $('#sd-quickview').is(':visible')) {
                                     window.sdQuickview.close();
                                 }
