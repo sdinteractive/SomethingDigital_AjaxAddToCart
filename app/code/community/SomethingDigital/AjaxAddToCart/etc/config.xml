@@ -22,6 +22,14 @@
           </sd_ajaxaddtocart>
         </observers>
       </controller_action_postdispatch_checkout_cart_add>
+      <controller_action_postdispatch_checkout_cart_ajaxDelete>
+        <observers>
+          <sd_ajaxdelete>
+            <class>SomethingDigital_AjaxAddToCart_Model_Observer</class>
+            <method>controllerActionPostdispatchCheckoutCartAjaxDelete</method>
+          </sd_ajaxdelete>
+        </observers>
+      </controller_action_postdispatch_checkout_cart_ajaxDelete>
     </events>
   </frontend>
 </config>
