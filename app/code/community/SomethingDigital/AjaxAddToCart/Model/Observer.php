@@ -85,6 +85,9 @@ class SomethingDigital_AjaxAddToCart_Model_Observer
     if($result['status'] === self::STATUS_ERROR){
         $result['message'] = '<ul class="messages"><li class="error-msg"><ul><li class="out-of-stock-error">' . $result['message'] . '</li></ul></li></ul>';
     }
+
+    //clear messages
+    Mage::getSingleton('checkout/session')->getMessages(true);
     
     return $result;
   }
