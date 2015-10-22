@@ -20,6 +20,20 @@ class SomethingDigital_AjaxAddToCart_Model_Observer
   }
 
   /**
+   * Postdispatch for Cart Update Action to sniff for Ajax Update
+   * Clear headers before sending response, to fix duplicate Content-Type issue
+   * @param  Varien_Event_Observer $observer
+   * @return void
+   */
+  public function controllerActionPostdispatchCheckoutCartAjaxUpdate(Varien_Event_Observer $observer)
+  {
+    $response = Mage::app()->getResponse();
+
+    $response->clearHeaders()
+      ->setHeader('Content-Type', 'application/json');
+  }
+
+  /**
    * Postdispatch for Cart Add Action to sniff for Ajax Add
    * @param  Varien_Event_Observer $observer 
    * @return void
