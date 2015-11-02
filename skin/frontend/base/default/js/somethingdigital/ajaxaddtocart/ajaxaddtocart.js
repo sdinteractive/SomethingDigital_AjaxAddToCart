@@ -27,6 +27,12 @@
                                 var headerCartHtml = $updatedCart.find('#header-cart').html();
                                 var skipCartHtml   = $updatedCart.find('.skip-cart').html();
 
+                                // Do we need to update the product form's action?
+                                // This allows one to continue configuring, for example.
+                                if (data.product_addtocart_form_action) {
+                                    $('#product_addtocart_form').prop('action', data.product_addtocart_form_action);
+                                }
+
                                 $body.removeClass('locked');
 
                                 // If add to cart from quickview, close quickview
