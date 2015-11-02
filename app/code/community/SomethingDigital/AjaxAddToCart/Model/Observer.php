@@ -6,10 +6,26 @@ class SomethingDigital_AjaxAddToCart_Model_Observer
   const STATUS_SUCCESS = 'SUCCESS';
 
   /**
+   * Retain the most recently updated item for the update response.
+   * @var Mage_Sales_Model_Quote_Item
+   */
+  protected $_lastUpdatedItem = null;
+
+  /**
    * Cached core helper instance.  Use _getCoreHelper().
    * @var Mage_Core_Helper_Data
    */
   protected $_coreHelper = null;
+
+  /**
+   * Listener to update $this->_lastUpdatedItem.
+   * @param  Varien_Event_Observer $observer
+   * @return void
+   */
+  public function checkoutCartUpdateItemComplete(Varien_Event_Observer $observer)
+  {
+    $this->_lastUpdatedItem = $observer->getItem();
+  }
 
   /**
    * Postdispatch for Cart Delete Action to sniff for Ajax Delete
@@ -94,6 +110,9 @@ class SomethingDigital_AjaxAddToCart_Model_Observer
   protected function _buildUpdateResponse($controllerAction)
   {
     $result = $this->_buildCommonResponse($controllerAction, '%s was updated in your shopping cart.', 'Cannot update the item.');
+    if ($this->_lastUpdatedItem !== null) {
+      $result['product_addtocart_form_action'] = Mage::getUrl('checkout/cart/updateItemOptions', array('id' => $this->_lastUpdatedItem->getId()));
+    }
     return $result;
   }
 
