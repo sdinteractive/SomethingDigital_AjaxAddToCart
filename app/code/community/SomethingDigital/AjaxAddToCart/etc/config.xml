@@ -38,6 +38,14 @@
           </sd_ajaxupdate>
         </observers>
       </controller_action_postdispatch_checkout_cart_ajaxUpdate>
+      <controller_action_postdispatch_checkout_cart_updateItemOptions>
+        <observers>
+          <sd_ajaxupdate>
+            <class>SomethingDigital_AjaxAddToCart_Model_Observer</class>
+            <method>controllerActionPostdispatchCheckoutCartUpdateItemOptions</method>
+          </sd_ajaxupdate>
+        </observers>
+      </controller_action_postdispatch_checkout_cart_updateItemOptions>
     </events>
   </frontend>
 </config>
