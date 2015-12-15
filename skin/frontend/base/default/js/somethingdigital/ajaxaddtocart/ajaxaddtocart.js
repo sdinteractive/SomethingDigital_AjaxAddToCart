@@ -3,7 +3,12 @@
 (function($){
 
     window.sdAjaxaddtocart = {
-        init:function(productAddToCartForm) {
+        init:function(productAddToCartForm, options) {
+            
+            var settings = $.extend({
+              scroll: true
+            }, options);
+            
             var $body = $('body');
 
             productAddToCartForm.submit = productAddToCartForm.submit.wrap(function(button, url){
@@ -41,12 +46,16 @@
                                     window.sdQuickview.close();
                                 }
 
-                                //TODO: make animation scroll optional
-                                $('html,body').animate({scrollTop: 0}, 250);
+                                if(settings.scroll) {
+                                    $('html,body').animate({scrollTop: 0}, 250);
+                                }
 
                                 //apply the minicart update and unfurl it
                                 $('#header-cart').html(headerCartHtml);
-                                $('.skip-cart').html(skipCartHtml).trigger('click');
+                                
+                                if(settings.scroll) {
+                                    $('.skip-cart').html(skipCartHtml).trigger('click');
+                                }
                             })
                             .fail(function(data){
                                 // display failure message
