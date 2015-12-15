@@ -22,6 +22,8 @@ Configurable JS Options
 
 Events Fired through JS
 --
+**sd_ajaxaddtocart:success**
+
 After a product is successfully added to the cart, a success event called `sd_ajaxaddtocart:success` is fired. It is easy to hook into this with jQuery. An example of listening for the event and firing a notification using [jGrowl](https://github.com/stanlemon/jGrowl):
 
 ```
@@ -29,6 +31,11 @@ After a product is successfully added to the cart, a success event called `sd_aj
     $j.jGrowl(data.message, { sticky: true, header: 'Added to Basket', footer: '<a href="<?php echo Mage::getBaseUrl() ?>checkout/cart" class="button--secondary">Go to basket</a>' });
   });
 ```
+
+**sd_ajaxaddtocart:failure**
+
+If a product can not be successfully added to the cart, a failure event called `sd_ajaxaddtocart:failure` is fired.
+
 
 License
 --
