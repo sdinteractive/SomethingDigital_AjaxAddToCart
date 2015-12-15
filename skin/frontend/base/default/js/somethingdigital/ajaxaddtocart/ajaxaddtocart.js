@@ -6,7 +6,8 @@
         init:function(productAddToCartForm, options) {
             
             var settings = $.extend({
-              scroll: true
+              scroll: true,
+              onSuccess: function() {}
             }, options);
             
             var $body = $('body');
@@ -56,6 +57,9 @@
                                 if(settings.scroll) {
                                     $('.skip-cart').html(skipCartHtml).trigger('click');
                                 }
+                                
+                                // Fire callback function on success and pass through data returned from response
+                                settings.onSuccess.call(this, data);
                             })
                             .fail(function(data){
                                 // display failure message
