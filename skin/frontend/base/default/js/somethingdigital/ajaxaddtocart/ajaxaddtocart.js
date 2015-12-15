@@ -8,8 +8,7 @@
             var settings = $.extend({
                 scroll: true,
                 scrollDuration: 250,
-                triggerMinicart: true,
-                onSuccess: function() {}
+                triggerMinicart: true
             }, options);
             
             var $body = $('body');
@@ -60,8 +59,8 @@
                                     $('.skip-cart').html(skipCartHtml).trigger('click');
                                 }
                                 
-                                // Fire callback function on success and pass through data returned from response
-                                settings.onSuccess.call(this, data);
+                                // Fire success event on success and pass through data returned from response
+                                $(document).trigger("sd_ajaxaddtocart:success", data);
                             })
                             .fail(function(data){
                                 // display failure message
