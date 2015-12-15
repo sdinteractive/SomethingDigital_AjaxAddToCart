@@ -12,6 +12,12 @@ Requirements
 - Magento 1.9+ (RWD theme compatibility)
 - jQuery
 
+Configurable JS Options
+--
+| Option           |  Default                             |  Description                                               |
+|------------------|--------------------------------------|------------------------------------------------------------|
+| scroll             | true                                    | This will scroll the page up and open mini cart on success. |
+| onSuccess           | empty                                | Optional callback function fired on success of product being added to cart. |
 
 License
 --
