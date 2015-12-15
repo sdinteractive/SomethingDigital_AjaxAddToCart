@@ -6,8 +6,10 @@
         init:function(productAddToCartForm, options) {
             
             var settings = $.extend({
-              scroll: true,
-              onSuccess: function() {}
+                scroll: true,
+                scrollDuration: 250,
+                triggerMinicart: true,
+                onSuccess: function() {}
             }, options);
             
             var $body = $('body');
@@ -48,13 +50,13 @@
                                 }
 
                                 if(settings.scroll) {
-                                    $('html,body').animate({scrollTop: 0}, 250);
+                                    $('html,body').animate({scrollTop: 0}, settings.scrollDuration);
                                 }
 
                                 //apply the minicart update and unfurl it
                                 $('#header-cart').html(headerCartHtml);
                                 
-                                if(settings.scroll) {
+                                if(settings.triggerMinicart) {
                                     $('.skip-cart').html(skipCartHtml).trigger('click');
                                 }
                                 
