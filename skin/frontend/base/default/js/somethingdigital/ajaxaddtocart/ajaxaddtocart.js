@@ -85,7 +85,7 @@
                                         });
                                 }
                                 
-                                // Fire success event on success and pass through data returned from response
+                                // Fire success event on failure and pass through data returned from response
                                 $(document).trigger("sd_ajaxaddtocart:failure", data);
 
                                 //unset the modal block
