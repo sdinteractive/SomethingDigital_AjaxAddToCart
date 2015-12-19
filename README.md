@@ -27,7 +27,7 @@ Events Fired through JS
 After a product is successfully added to the cart, a success event called `sd_ajaxaddtocart:success` is fired. It is easy to hook into this with jQuery. An example of listening for the event and firing a notification using [jGrowl](https://github.com/stanlemon/jGrowl):
 
 ```
-  $j(document).bind( "sd_ajaxaddtocart:success", function(e, data) {
+  $j(document).on( "sd_ajaxaddtocart:success", function(e, data) {
     $j.jGrowl(data.message, { sticky: true, header: 'Added to Basket', footer: '<a href="<?php echo Mage::getBaseUrl() ?>checkout/cart" class="button--secondary">Go to basket</a>' });
   });
 ```
