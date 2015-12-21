@@ -3,7 +3,14 @@
 (function($){
 
     window.sdAjaxaddtocart = {
-        init:function(productAddToCartForm) {
+        init:function(productAddToCartForm, options) {
+            
+            var settings = $.extend({
+                scroll: true,
+                scrollDuration: 250,
+                triggerMinicart: true
+            }, options);
+            
             var $body = $('body');
 
             productAddToCartForm.submit = productAddToCartForm.submit.wrap(function(button, url){
@@ -41,12 +48,19 @@
                                     window.sdQuickview.close();
                                 }
 
-                                //TODO: make animation scroll optional
-                                $('html,body').animate({scrollTop: 0}, 250);
+                                if(settings.scroll) {
+                                    $('html,body').animate({scrollTop: 0}, settings.scrollDuration);
+                                }
 
                                 //apply the minicart update and unfurl it
                                 $('#header-cart').html(headerCartHtml);
-                                $('.skip-cart').html(skipCartHtml).trigger('click');
+                                
+                                if(settings.triggerMinicart) {
+                                    $('.skip-cart').html(skipCartHtml).trigger('click');
+                                }
+                                
+                                // Fire success event on success and pass through data returned from response
+                                $(document).trigger("sd_ajaxaddtocart:success", data);
                             })
                             .fail(function(data){
                                 // display failure message
@@ -70,6 +84,9 @@
                                             $(this).remove();
                                         });
                                 }
+                                
+                                // Fire success event on failure and pass through data returned from response
+                                $(document).trigger("sd_ajaxaddtocart:failure", data);
 
                                 //unset the modal block
                                 loadingModal.remove();
