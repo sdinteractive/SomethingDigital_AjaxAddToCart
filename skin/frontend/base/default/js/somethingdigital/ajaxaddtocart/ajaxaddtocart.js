@@ -55,15 +55,16 @@
                                 //apply the minicart update and unfurl it
                                 $('#header-cart').html(headerCartHtml);
 
-                                $('.skip-cart').html(skipCartHtml);
+                                var $cartLink = $('.skip-cart');
+                                $cartLink.html(skipCartHtml);
                                 if ($updatedCart.find('.skip-cart').hasClass('no-count')) {
-                                    $('.skip-cart').addClass('no-count');
+                                    $cartLink.addClass('no-count');
                                 } else {
-                                    $('.skip-cart').removeClass('no-count');
+                                    $cartLink.removeClass('no-count');
                                 }
 
                                 if(settings.triggerMinicart) {
-                                    $('.skip-cart').trigger('click');
+                                    $cartLink.trigger('click');
                                 }
 
                                 // Fire success event on success and pass through data returned from response
