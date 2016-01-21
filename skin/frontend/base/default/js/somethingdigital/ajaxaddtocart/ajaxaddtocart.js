@@ -70,7 +70,8 @@
                                 // Fire success event on success and pass through data returned from response
                                 $(document).trigger("sd_ajaxaddtocart:success", data);
                             })
-                            .fail(function(data){
+                            .fail(function(jqXHR){
+                                var data = jqXHR.responseJSON;
                                 // display failure message
                                 // if add to cart from quickview
                                 if(typeof(window.sdQuickView) == "object" && $('#sd-quickview').is(':visible')) {

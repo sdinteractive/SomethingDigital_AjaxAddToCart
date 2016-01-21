@@ -127,7 +127,6 @@ class SomethingDigital_AjaxAddToCart_Model_Observer
     $product      = $catalogModel->setStoreId($storeId)->load($productId);
 
     try {
-
       if (!$product) {
         $result['status']  = self::STATUS_ERROR;
         $result['message'] = $this->_getCoreHelper()->__('Unable to find Product ID');
@@ -142,24 +141,37 @@ class SomethingDigital_AjaxAddToCart_Model_Observer
 
     } catch(Mage_Core_Exception $e) {
       $result['status'] = self::STATUS_ERROR;
-      $result['message'] = $this->_getCoreHelper()->__($errorMessage);
+      $result['message'] = $this->_formatErrorMessages(array($this->_getCoreHelper()->__($errorMessage)));
 
       Mage::logException($e);
     }
 
-    if($result['status'] === self::STATUS_ERROR){
-      $result['message'] = $this->_formatErrorMessage($result['message']);
-    }
+    // Clear messages out as well, but let's check if any were errors.
+    /** @var Mage_Checkout_Model_Session $checkoutSession */
+    $checkoutSession = Mage::getSingleton('checkout/session');
+    $checkoutMessages = $checkoutSession->getMessages(true);
+    /** @var Mage_Core_Model_Message_Abstract[] $checkoutErrors */
+    $checkoutErrors = $checkoutMessages->getErrors();
 
-    //clear messages
-    Mage::getSingleton('checkout/session')->getMessages(true);
+    // If there were errors, let's change the response.
+    if (!empty($checkoutErrors) && $result['status'] == self::STATUS_SUCCESS) {
+      $result['status'] = self::STATUS_ERROR;
+      // Remove the minicart html, to avoid confusion.
+      unset($result['minicart_head']);
+
+      $messages = array();
+      foreach ($checkoutErrors as $error) {
+        $messages[] = $this->_getCoreHelper()->escapeHtml($error->getText());
+      }
+      $result['message'] = $this->_formatErrorMessages($messages);
+    }
     
     return $result;
   }
 
-  protected function _formatErrorMessage($htmlMessage)
+  protected function _formatErrorMessages($htmlMessages)
   {
-    return '<ul class="messages"><li class="error-msg"><ul><li class="out-of-stock-error">' . $htmlMessage . '</li></ul></li></ul>';
+    return '<ul class="messages"><li class="error-msg"><ul><li class="out-of-stock-error">' . implode('</li><li class="out-of-stock-error">', $htmlMessages) . '</li></ul></li></ul>';
   }
 
   /**
