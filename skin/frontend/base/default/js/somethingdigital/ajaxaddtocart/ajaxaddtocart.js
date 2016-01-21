@@ -4,13 +4,13 @@
 
     window.sdAjaxaddtocart = {
         init:function(productAddToCartForm, options) {
-            
+
             var settings = $.extend({
                 scroll: true,
                 scrollDuration: 250,
                 triggerMinicart: true
             }, options);
-            
+
             var $body = $('body');
 
             productAddToCartForm.submit = productAddToCartForm.submit.wrap(function(button, url){
@@ -54,11 +54,19 @@
 
                                 //apply the minicart update and unfurl it
                                 $('#header-cart').html(headerCartHtml);
-                                
-                                if(settings.triggerMinicart) {
-                                    $('.skip-cart').html(skipCartHtml).trigger('click');
+
+                                var $cartLink = $('.skip-cart');
+                                $cartLink.html(skipCartHtml);
+                                if ($updatedCart.find('.skip-cart').hasClass('no-count')) {
+                                    $cartLink.addClass('no-count');
+                                } else {
+                                    $cartLink.removeClass('no-count');
                                 }
-                                
+
+                                if(settings.triggerMinicart) {
+                                    $cartLink.trigger('click');
+                                }
+
                                 // Fire success event on success and pass through data returned from response
                                 $(document).trigger("sd_ajaxaddtocart:success", data);
                             })
@@ -84,7 +92,7 @@
                                             $(this).remove();
                                         });
                                 }
-                                
+
                                 // Fire success event on failure and pass through data returned from response
                                 $(document).trigger("sd_ajaxaddtocart:failure", data);
 
