@@ -171,7 +171,7 @@ class SomethingDigital_AjaxAddToCart_Model_Observer
 
   protected function _formatErrorMessages($htmlMessages)
   {
-    return '<ul class="messages"><li class="error-msg"><ul><li class="out-of-stock-error">' . implode('</li><li class="out-of-stock-error">', $htmlMessages) . '</li></ul></li></ul>';
+    return '<ul class="messages"><li class="error-msg"><ul><li class="out-of-stock-error"><span>' . implode('</span></li><li class="out-of-stock-error"><span>', $htmlMessages) . '</span></li></ul></li></ul>';
   }
 
   /**
