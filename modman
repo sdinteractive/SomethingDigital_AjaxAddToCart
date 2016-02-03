@@ -10,3 +10,6 @@ skin/frontend/base/default/js/somethingdigital/ajaxaddtocart
 
 # etc
 app/etc/modules/SomethingDigital_AjaxAddToCart.xml
+
+# translation
+app/locale/en_US/SomethingDigital_AjaxAddToCart.csv

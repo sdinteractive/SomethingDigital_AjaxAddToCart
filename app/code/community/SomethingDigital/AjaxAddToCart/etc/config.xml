@@ -55,5 +55,14 @@
         </observers>
       </checkout_cart_update_item_complete>
     </events>
+    <translate>
+      <modules>
+        <SomethingDigital_AjaxAddToCart>
+          <files>
+            <default>SomethingDigital_AjaxAddToCart.csv</default>
+          </files>
+        </SomethingDigital_AjaxAddToCart>
+      </modules>
+    </translate>
   </frontend>
 </config>
