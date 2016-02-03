@@ -1,12 +1,12 @@
-.ajax-atc___pop-up--template {
+.sd-ajaxatcart___pop-up--template {
   display: none;
 }
 
-.ajax-atc___pop-up--showcase:empty {
+.sd-ajaxatcart___pop-up--showcase:empty {
   display: none;
 }
 
-.ajax-atc___pop-up--showcase {
+.sd-ajaxatcart___pop-up--showcase {
   position: fixed;
   top: 0;
   right: 0;
@@ -15,7 +15,7 @@
   z-index: 9999;
 }
 
-.atc-pop-up {
+.sd-ajaxatcart-popup {
   margin: 20px;
   background: white;
   -webkit-box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.5);
@@ -23,20 +23,20 @@
           box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.5);
 }
 
-.atc-pop-up__header {
+.sd-ajaxatcart-popup__header {
   position: relative;
   padding: 10px 20px;
   background-color: #333;
 }
 
-.atc-pop-up__header h3 {
+.sd-ajaxatcart-popup__header h3 {
   margin: 0;
   font-size: 16px;
   color: white;
   text-transform: uppercase;
 }
 
-.atc-pop-up__close {
+.sd-ajaxatcart-popup__close {
   position: absolute;
   top: 0;
   right: 0;
@@ -46,16 +46,16 @@
   cursor: pointer;
 }
 
-.atc-pop-up__message {
+.sd-ajaxatcart-popup__message {
   margin-bottom: 10px;
 }
 
-.atc-pop-up__content {
+.sd-ajaxatcart-popup__content {
   padding: 20px;
   padding-top: 10px;
 }
 
-.button--secondary {
+.sd-ajaxatcart-popup__psuedo-button {
   padding: 11px 20px;
   font-size: 14px;
   line-height: 18px;

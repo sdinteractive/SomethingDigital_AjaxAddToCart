@@ -35,8 +35,8 @@
                                 var headerCartHtml = $updatedCart.find('#header-cart').html();
                                 var skipCartHtml   = $updatedCart.find('.skip-cart').html();
 
-                                var $notificationTemplate = $('#ajax-atc___pop-up--template').children();
-                                var $notificationShowcase = $('#ajax-atc___pop-up--showcase');
+                                var $notificationTemplate = $('#sd-ajaxatcart___pop-up--template').children();
+                                var $notificationShowcase = $('#sd-ajaxatcart___pop-up--showcase');
 
                                 // Do we need to update the product form's action?
                                 // This allows one to continue configuring, for example.
@@ -82,8 +82,8 @@
 
                                   // Clone our template
                                   var $notification = $notificationTemplate.clone()
-                                  $notification.find('.atc-pop-up__message').text(data.message);
-                                  $notification.find('.atc-pop-up__close').on('click', function() {
+                                  $notification.find('.sd-ajaxatcart-popup__message').text(data.message);
+                                  $notification.find('.sd-ajaxatcart-popup__close').on('click', function() {
                                     $notification.hide();
                                   });
                                   $notification.appendTo($notificationShowcase).delay(settings.popupDuration * 1000).fadeOut();
