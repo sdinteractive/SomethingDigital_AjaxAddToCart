@@ -16,8 +16,9 @@ Configurable JS Options
 --
 | Option           |  Default                             |  Description                                               |
 |------------------|--------------------------------------|------------------------------------------------------------|
-| scroll             | true                                    | This will scroll the page up and open mini cart on success. |
+| scroll             | false                                    | This will scroll the page up and open mini cart on success instead of displaying a success popup. |
 | scrollDuration             | 250                                    | Duration of scroll animation in ms. |
+| popupDuration             | 5                                    | Duration in seconds that the pop up notification displays. |
 | triggerMinicart             | true                                    | This will show the minicart when product added successfully. |
 
 Events Fired through JS

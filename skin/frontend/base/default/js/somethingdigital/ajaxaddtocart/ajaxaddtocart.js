@@ -6,9 +6,9 @@
         init:function(productAddToCartForm, options) {
 
             var settings = $.extend({
-                scroll: true,
+                scroll: false,
                 scrollDuration: 250,
-                popupDuration: 500,
+                popupDuration: 5,
                 triggerMinicart: true
             }, options);
 
@@ -86,7 +86,7 @@
                                   $notification.find('.atc-pop-up__close').on('click', function() {
                                     $notification.hide();
                                   });
-                                  $notification.appendTo($notificationShowcase).delay(settings.popupDuration).fadeOut();
+                                  $notification.appendTo($notificationShowcase).delay(settings.popupDuration * 1000).fadeOut();
                                 }
 
                             })
