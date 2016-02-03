@@ -5,6 +5,7 @@ app/design/frontend/base/default/layout/somethingdigital_ajaxaddtocart.xml
 app/design/frontend/base/default/template/somethingdigital/ajaxaddtocart
 
 # skin
+skin/frontend/base/default/css/somethingdigital/ajaxaddtocart
 skin/frontend/base/default/js/somethingdigital/ajaxaddtocart
 
 # etc

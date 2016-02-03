@@ -6,7 +6,7 @@
         init:function(productAddToCartForm, options) {
 
             var settings = $.extend({
-                scroll: true,
+                scroll: false,
                 scrollDuration: 250,
                 triggerMinicart: true
             }, options);
@@ -69,6 +69,13 @@
 
                                 // Fire success event on success and pass through data returned from response
                                 $(document).trigger("sd_ajaxaddtocart:success", data);
+
+                                //show our popup
+                                if(!settings.scroll) {
+                                  console.log('trying');
+                                  $($('#ajax-atc___pop-up--template').html()).clone().appendTo($body);
+                                }
+
                             })
                             .fail(function(jqXHR){
                                 var data = jqXHR.responseJSON;

@@ -1,18 +1,26 @@
 <?xml version="1.0"?>
 <layout>
   <product_list>
+    <reference name="head">
+      <action method="addItem"><type>skin_css</type><name>css/somethingdigital/ajaxaddtocart/ajaxaddtocart.css</name></action>
+    </reference>
     <reference name="before_body_end">
       <block type="page/html_head" name="ajaxaddtocart-js" after="-" template="somethingdigital/ajaxaddtocart/page/html/footer-js.phtml">
         <action method="addItem"><type>skin_js</type><name>js/somethingdigital/ajaxaddtocart/ajaxaddtocart.js</name></action>
       </block>
+      <block type="core/template" name="ajaxaddtocart-popup" after="-" template="somethingdigital/ajaxaddtocart/page/html/popup.phtml" />
     </reference>
   </product_list>
 
   <catalog_product_view>
+    <reference name="head">
+      <action method="addItem"><type>skin_css</type><name>css/somethingdigital/ajaxaddtocart/ajaxaddtocart.css</name></action>
+    </reference>
     <reference name="before_body_end">
-      <block type="page/html_head" name="ajaxaddtocart-js" after="-" template="somethingdigital/ajaxaddtocart/page/html/footer-js.phtml">
+      <block type="page/html_head" name="ajaxaddtocart-popup" after="-" template="somethingdigital/ajaxaddtocart/page/html/footer-js.phtml">
         <action method="addItem"><type>skin_js</type><name>js/somethingdigital/ajaxaddtocart/ajaxaddtocart.js</name></action>
       </block>
+      <block type="core/template" name="ajaxaddtocart-popup" after="-" template="somethingdigital/ajaxaddtocart/page/html/popup.phtml" />
     </reference>
   </catalog_product_view>
 </layout>

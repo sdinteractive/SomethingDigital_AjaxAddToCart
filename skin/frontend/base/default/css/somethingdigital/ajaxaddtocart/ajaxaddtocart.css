@@ -1,0 +1,12 @@
+.ajax-atc___pop-up--template {
+  display: none;
+}
+
+.atc-pop-up {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: #eee;
+  padding: 20px;
+  margin: 20px 30px;
+}
