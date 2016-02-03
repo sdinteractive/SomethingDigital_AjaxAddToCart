@@ -1,13 +1,15 @@
+<?php // *DO NOT* Edit the class or id name of the ajax-atc___pop-up--template div.
+      // Feel free to customize anything inside it to your crazy desires ?>
 <div id="ajax-atc___pop-up--template" class="ajax-atc___pop-up--template">
   <div class="atc-pop-up">
     <div class="atc-pop-up__header">
       <h3><?php echo $this->__('Added to Cart'); ?></h3>
     </div>
-    <p class="atc-pop-up__notification">
-      <?php echo $this->__('{{product}} was added to your bag'); ?>
-    </p>
-    <div class="atc-pop-up__buttons-set">
-      <a href="<?php echo Mage::helper('checkout/cart')->getCartUrl(); ?>" class="button--secondary"><?php echo $this->__('Go to Cart'); ?></a>
+    <div class="atc-pop-up__content">
+      <p class="atc-pop-up__message"></p>
+      <div class="atc-pop-up__buttons-set">
+        <a href="<?php echo Mage::helper('checkout/cart')->getCartUrl(); ?>" class="button--secondary"><?php echo $this->__('Go to Cart'); ?></a>
+      </div>
     </div>
   </div>
 </div>

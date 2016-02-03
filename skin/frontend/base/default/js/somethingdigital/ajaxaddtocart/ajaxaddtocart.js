@@ -34,6 +34,9 @@
                                 var headerCartHtml = $updatedCart.find('#header-cart').html();
                                 var skipCartHtml   = $updatedCart.find('.skip-cart').html();
 
+                                var $notificationTemplate = $('#ajax-atc___pop-up--template').children();
+                                var $notificationShowcase = $('#ajax-atc___pop-up--showcase');
+
                                 // Do we need to update the product form's action?
                                 // This allows one to continue configuring, for example.
                                 if (data.product_addtocart_form_action) {
@@ -70,10 +73,11 @@
                                 // Fire success event on success and pass through data returned from response
                                 $(document).trigger("sd_ajaxaddtocart:success", data);
 
-                                //show our popup
+                                // Show our popup
                                 if(!settings.scroll) {
-                                  console.log('trying');
-                                  $($('#ajax-atc___pop-up--template').html()).clone().appendTo($body);
+                                  var $notification = $notificationTemplate.clone()
+                                  $notification.find('.atc-pop-up__message').text(data.message);
+                                  $notification.appendTo($notificationShowcase);
                                 }
 
                             })

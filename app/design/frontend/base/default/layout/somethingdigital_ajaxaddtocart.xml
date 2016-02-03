@@ -9,6 +9,7 @@
         <action method="addItem"><type>skin_js</type><name>js/somethingdigital/ajaxaddtocart/ajaxaddtocart.js</name></action>
       </block>
       <block type="core/template" name="ajaxaddtocart-popup" after="-" template="somethingdigital/ajaxaddtocart/page/html/popup.phtml" />
+      <block type="core/template" name="ajaxaddtocart-showcase" after="-" template="somethingdigital/ajaxaddtocart/page/html/showcase.phtml" />
     </reference>
   </product_list>
 
@@ -21,6 +22,7 @@
         <action method="addItem"><type>skin_js</type><name>js/somethingdigital/ajaxaddtocart/ajaxaddtocart.js</name></action>
       </block>
       <block type="core/template" name="ajaxaddtocart-popup" after="-" template="somethingdigital/ajaxaddtocart/page/html/popup.phtml" />
+      <block type="core/template" name="ajaxaddtocart-showcase" after="-" template="somethingdigital/ajaxaddtocart/page/html/showcase.phtml" />
     </reference>
   </catalog_product_view>
 </layout>
