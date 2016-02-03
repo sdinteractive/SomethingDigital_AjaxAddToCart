@@ -81,11 +81,16 @@
                                   $('#header-cart').removeClass('skip-active');
 
                                   // Clone our template
-                                  var $notification = $notificationTemplate.clone()
-                                  $notification.find('.sd-ajaxatcart-popup__message').text(data.message);
+                                  var $notification = $notificationTemplate.clone();
+
+                                  if (data.message) {
+                                    $notification.find('.sd-ajaxatcart-popup__message').text(data.message);
+                                  }
+
                                   $notification.find('.sd-ajaxatcart-popup__close').on('click', function() {
                                     $notification.hide();
                                   });
+
                                   $notification.appendTo($notificationShowcase).delay(settings.popupDuration * 1000).fadeOut();
                                 }
 

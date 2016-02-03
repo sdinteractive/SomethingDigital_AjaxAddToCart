@@ -4,14 +4,14 @@
   <div class="sd-ajaxatcart-popup">
     <div class="sd-ajaxatcart-popup__header">
       <h3><?php echo $this->__('Added to Cart'); ?></h3>
-      <a class="sd-ajaxatcart-popup__close">Close</p>
+      <a class="sd-ajaxatcart-popup__close">Close</a>
     </div>
     <div class="sd-ajaxatcart-popup__content">
       <p class="sd-ajaxatcart-popup__message">
         <?php echo $this->__('The product was added to your cart'); ?>
       </p>
-      <div class="sd-ajaxatcart-popup__psuedo-button">
-        <a href="<?php echo Mage::helper('checkout/cart')->getCartUrl(); ?>" class="button--secondary"><?php echo $this->__('Go to Cart'); ?></a>
+      <div class="atc-pop-up__buttons-set">
+        <a href="<?php echo Mage::helper('checkout/cart')->getCartUrl(); ?>" class="sd-ajaxatcart-popup__psuedo-button"><?php echo $this->__('Go to Cart'); ?></a>
       </div>
     </div>
   </div>
