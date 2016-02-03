@@ -4,9 +4,12 @@
   <div class="atc-pop-up">
     <div class="atc-pop-up__header">
       <h3><?php echo $this->__('Added to Cart'); ?></h3>
+      <p class="atc-pop-up__close">Close</p>
     </div>
     <div class="atc-pop-up__content">
-      <p class="atc-pop-up__message"></p>
+      <p class="atc-pop-up__message">
+        <?php echo $this->__('The product was added to your cart'); ?>
+      </p>
       <div class="atc-pop-up__buttons-set">
         <a href="<?php echo Mage::helper('checkout/cart')->getCartUrl(); ?>" class="button--secondary"><?php echo $this->__('Go to Cart'); ?></a>
       </div>

@@ -10,12 +10,13 @@
   position: fixed;
   top: 0;
   right: 0;
+  width: 100%;
+  max-width: 425px;
   z-index: 9999;
 }
 
 .atc-pop-up {
   margin: 20px;
-  max-width: 425px;
   background: white;
   -webkit-box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.5);
      -moz-box-shadow: 0px 0px 11px 0px rgba(0,0,0,0.5);
@@ -23,6 +24,7 @@
 }
 
 .atc-pop-up__header {
+  position: relative;
   padding: 10px 20px;
   background-color: #333;
 }
@@ -34,6 +36,16 @@
   text-transform: uppercase;
 }
 
+.atc-pop-up__close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px 20px;
+  font-size: 12px;
+  color: white;
+  cursor: pointer;
+}
+
 .atc-pop-up__message {
   margin-bottom: 10px;
 }
@@ -41,4 +53,18 @@
 .atc-pop-up__content {
   padding: 20px;
   padding-top: 10px;
+}
+
+.button--secondary {
+  padding: 11px 20px;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 0;
+  padding: 10px 20px;
+  color: #000;
+  background-color: #fff;
+  border: 1px solid #1e1c1d;
 }

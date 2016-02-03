@@ -6,8 +6,9 @@
         init:function(productAddToCartForm, options) {
 
             var settings = $.extend({
-                scroll: false,
+                scroll: true,
                 scrollDuration: 250,
+                popupDuration: 500,
                 triggerMinicart: true
             }, options);
 
@@ -75,9 +76,17 @@
 
                                 // Show our popup
                                 if(!settings.scroll) {
+                                  // Close minicart
+                                  $('#header-cart__link').removeClass('skip-active');
+                                  $('#header-cart').removeClass('skip-active');
+
+                                  // Clone our template
                                   var $notification = $notificationTemplate.clone()
                                   $notification.find('.atc-pop-up__message').text(data.message);
-                                  $notification.appendTo($notificationShowcase);
+                                  $notification.find('.atc-pop-up__close').on('click', function() {
+                                    $notification.hide();
+                                  });
+                                  $notification.appendTo($notificationShowcase).delay(settings.popupDuration).fadeOut();
                                 }
 
                             })
