@@ -6,7 +6,7 @@
         init:function(productAddToCartForm, options) {
 
             var settings = $.extend({
-                scroll: true,
+                scroll: false,
                 scrollDuration: 250,
                 triggerMinicart: true
             }, options);
