@@ -87,7 +87,8 @@
                                     $notification.find('.sd-ajaxatcart-popup__message').text(data.message);
                                   }
 
-                                  $notification.find('.sd-ajaxatcart-popup__close').on('click', function() {
+                                  $notification.find('.sd-ajaxatcart-popup__close').on('click', function(e) {
+                                    e.preventDefault();
                                     $notification.hide();
                                   });
 

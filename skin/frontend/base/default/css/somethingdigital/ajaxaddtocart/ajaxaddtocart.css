@@ -43,7 +43,7 @@
   padding: 10px 20px;
   font-size: 12px;
   color: white;
-  cursor: pointer;
+  text-decoration: none;
 }
 
 .sd-ajaxatcart-popup__message {
