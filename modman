@@ -5,7 +5,11 @@ app/design/frontend/base/default/layout/somethingdigital_ajaxaddtocart.xml
 app/design/frontend/base/default/template/somethingdigital/ajaxaddtocart
 
 # skin
+skin/frontend/base/default/css/somethingdigital/ajaxaddtocart
 skin/frontend/base/default/js/somethingdigital/ajaxaddtocart
 
 # etc
 app/etc/modules/SomethingDigital_AjaxAddToCart.xml
+
+# translation
+app/locale/en_US/SomethingDigital_AjaxAddToCart.csv

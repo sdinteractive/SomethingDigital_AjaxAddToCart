@@ -6,8 +6,9 @@
         init:function(productAddToCartForm, options) {
 
             var settings = $.extend({
-                scroll: true,
+                scroll: false,
                 scrollDuration: 250,
+                popupDuration: 5,
                 triggerMinicart: true
             }, options);
 
@@ -33,6 +34,9 @@
                                 var $updatedCart   = $(data.minicart_head);
                                 var headerCartHtml = $updatedCart.find('#header-cart').html();
                                 var skipCartHtml   = $updatedCart.find('.skip-cart').html();
+
+                                var $notificationTemplate = $('#sd-ajaxatcart___pop-up--template').children();
+                                var $notificationShowcase = $('#sd-ajaxatcart___pop-up--showcase');
 
                                 // Do we need to update the product form's action?
                                 // This allows one to continue configuring, for example.
@@ -69,6 +73,28 @@
 
                                 // Fire success event on success and pass through data returned from response
                                 $(document).trigger("sd_ajaxaddtocart:success", data);
+
+                                // Show our popup
+                                if(!settings.scroll) {
+                                  // Close minicart
+                                  $('#header-cart__link').removeClass('skip-active');
+                                  $('#header-cart').removeClass('skip-active');
+
+                                  // Clone our template
+                                  var $notification = $notificationTemplate.clone();
+
+                                  if (data.message) {
+                                    $notification.find('.sd-ajaxatcart-popup__message').text(data.message);
+                                  }
+
+                                  $notification.find('.sd-ajaxatcart-popup__close').on('click', function(e) {
+                                    e.preventDefault();
+                                    $notification.hide();
+                                  });
+
+                                  $notification.appendTo($notificationShowcase).delay(settings.popupDuration * 1000).fadeOut();
+                                }
+
                             })
                             .fail(function(jqXHR){
                                 var data = jqXHR.responseJSON;
