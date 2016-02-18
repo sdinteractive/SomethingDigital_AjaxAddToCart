@@ -4,13 +4,13 @@
   <div class="sd-ajax-add-to-cart-popup">
     <div class="sd-ajax-add-to-cart-popup__header">
       <h3><?php echo $this->__('Added to Cart'); ?></h3>
-      <a href="#" class="sd-ajax-add-to-cart-popup__close"><?php echo $this->__('Close'); ?></a>
+      <button type="button" class="sd-ajax-add-to-cart-popup__close" aria-controls="sd-ajax-add-to-cart-popup"><?php echo $this->__('Close'); ?></button>
     </div>
     <div class="sd-ajax-add-to-cart-popup__content">
       <p class="sd-ajax-add-to-cart-popup__message">
         <?php echo $this->__('The product was added to your cart'); ?>
       </p>
-      <div class="atc-pop-up__buttons-set">
+      <div class="sd-ajax-add-to-cart-popup__buttons-set">
         <a href="<?php echo Mage::helper('checkout/cart')->getCartUrl(); ?>" class="sd-ajax-add-to-cart-popup__psuedo-button"><?php echo $this->__('Go to Cart'); ?></a>
       </div>
     </div>
