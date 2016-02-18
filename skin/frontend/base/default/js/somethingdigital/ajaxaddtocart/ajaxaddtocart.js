@@ -35,8 +35,8 @@
                                 var headerCartHtml = $updatedCart.find('#header-cart').html();
                                 var skipCartHtml   = $updatedCart.find('.skip-cart').html();
 
-                                var $notificationTemplate = $('#sd-ajaxatcart___pop-up--template').children();
-                                var $notificationShowcase = $('#sd-ajaxatcart___pop-up--showcase');
+                                var $notificationTemplate = $('#sd-ajax-add-to-cart___pop-up--template').children();
+                                var $notificationShowcase = $('#sd-ajax-add-to-cart___pop-up--showcase');
 
                                 // Do we need to update the product form's action?
                                 // This allows one to continue configuring, for example.
@@ -84,10 +84,10 @@
                                   var $notification = $notificationTemplate.clone();
 
                                   if (data.message) {
-                                    $notification.find('.sd-ajaxatcart-popup__message').text(data.message);
+                                    $notification.find('.sd-ajax-add-to-cart-popup__message').text(data.message);
                                   }
 
-                                  $notification.find('.sd-ajaxatcart-popup__close').on('click', function(e) {
+                                  $notification.find('.sd-ajax-add-to-cart-popup__close').on('click', function(e) {
                                     e.preventDefault();
                                     $notification.hide();
                                   });
