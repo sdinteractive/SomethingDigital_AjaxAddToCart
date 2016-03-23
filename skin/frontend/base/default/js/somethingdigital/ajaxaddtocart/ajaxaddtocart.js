@@ -8,8 +8,9 @@
             var settings = $.extend({
                 scroll: false,
                 scrollDuration: 250,
-                popupDuration: 5,
-                triggerMinicart: true
+                popupDuration: 0, // 0 means infinite -- for accessibility concerns. USe 1+ for specific duration
+                triggerMinicart: true,
+                triggerLoadingModal: false
             }, options);
 
             var $body = $('body');
@@ -21,7 +22,13 @@
 
                 if (this.validator.validate()) {
                     $body.addClass('locked');
-                    loadingModal.show();
+
+                    // Fire submit event on submit -- useful for custom loaders
+                    $(document).trigger("sd_ajaxaddtocart:submit");
+
+                    if(settings.triggerLoadingModal) {
+                      loadingModal.show();
+                    }
 
                     try {
                         $.ajax({
@@ -92,7 +99,11 @@
                                     $notification.hide();
                                   });
 
-                                  $notification.appendTo($notificationShowcase).delay(settings.popupDuration * 1000).fadeOut();
+                                  if(settings.popupDuration === 0) {
+                                    $notification.appendTo($notificationShowcase);
+                                  } else {
+                                    $notification.appendTo($notificationShowcase).delay(settings.popupDuration * 1000).fadeOut();
+                                  }
                                 }
 
                             })
@@ -124,7 +135,9 @@
                                 $(document).trigger("sd_ajaxaddtocart:failure", data);
 
                                 //unset the modal block
-                                loadingModal.remove();
+                                if(settings.triggerLoadingModal) {
+                                  loadingModal.remove();
+                                }
                             })
                             .always(loadingModal.remove);
                     } catch (e) {
