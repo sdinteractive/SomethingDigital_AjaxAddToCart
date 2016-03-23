@@ -8,9 +8,10 @@
             var settings = $.extend({
                 scroll: false,
                 scrollDuration: 250,
+                triggerPopup: true,
                 popupDuration: 0, // 0 means infinite -- for accessibility concerns. USe 1+ for specific duration
                 triggerMinicart: true,
-                triggerLoadingModal: false
+                triggerLoadingModal: true
             }, options);
 
             var $body = $('body');
@@ -19,6 +20,7 @@
                 var form   = this.form;
                 var oldUrl = form.action;
                 var e      = null;
+                var weHaveALoadingModal = typeof loadingModal !== 'undefined'; // check if site has a loadingModal
 
                 if (this.validator.validate()) {
                     $body.addClass('locked');
@@ -26,7 +28,7 @@
                     // Fire submit event on submit -- useful for custom loaders
                     $(document).trigger("sd_ajaxaddtocart:submit");
 
-                    if(settings.triggerLoadingModal) {
+                    if (weHaveALoadingModal && settings.triggerLoadingModal) {
                       loadingModal.show();
                     }
 
@@ -54,7 +56,7 @@
                                 $body.removeClass('locked');
 
                                 // If add to cart from quickview, close quickview
-                                if(typeof(window.sdQuickview) != "undefined"
+                                if (typeof(window.sdQuickview) != "undefined"
                                     && $('#sd-quickview').is(':visible')) {
                                     window.sdQuickview.close();
                                 }
@@ -74,7 +76,7 @@
                                     $cartLink.removeClass('no-count');
                                 }
 
-                                if(settings.triggerMinicart) {
+                                if (settings.triggerMinicart) {
                                     $cartLink.trigger('click');
                                 }
 
@@ -82,7 +84,7 @@
                                 $(document).trigger("sd_ajaxaddtocart:success", data);
 
                                 // Show our popup
-                                if(!settings.scroll) {
+                                if (!settings.scroll && settings.triggerPopup) {
                                   // Close minicart
                                   $('#header-cart__link').removeClass('skip-active');
                                   $('#header-cart').removeClass('skip-active');
@@ -111,7 +113,7 @@
                                 var data = jqXHR.responseJSON;
                                 // display failure message
                                 // if add to cart from quickview
-                                if(typeof(window.sdQuickView) == "object" && $('#sd-quickview').is(':visible')) {
+                                if (typeof(window.sdQuickView) == "object" && $('#sd-quickview').is(':visible')) {
                                     window.sdQuickview.content.prepend(data.message);
 
                                     //remove the failure message after 5s
@@ -135,7 +137,7 @@
                                 $(document).trigger("sd_ajaxaddtocart:failure", data);
 
                                 //unset the modal block
-                                if(settings.triggerLoadingModal) {
+                                if (weHaveALoadingModal && settings.triggerLoadingModal) {
                                   loadingModal.remove();
                                 }
                             })
@@ -152,7 +154,7 @@
         }
     };
 
-    if(typeof(productAddToCartForm) != "undefined") {
+    if (typeof(productAddToCartForm) != "undefined") {
         sdAjaxaddtocart.init(productAddToCartForm);
     }
 
