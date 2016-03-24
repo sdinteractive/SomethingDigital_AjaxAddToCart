@@ -155,7 +155,10 @@
     };
 
     if (typeof(productAddToCartForm) != "undefined") {
-        sdAjaxaddtocart.init(productAddToCartForm);
+        // override default options with global sdAjaxaddtocartOptions variable
+        var cartOptions = (typeof(sdAjaxaddtocartOptions) != "undefined")? sdAjaxaddtocartOptions : {};
+
+        sdAjaxaddtocart.init(productAddToCartForm, cartOptions);
     }
 
 })(jQuery);
