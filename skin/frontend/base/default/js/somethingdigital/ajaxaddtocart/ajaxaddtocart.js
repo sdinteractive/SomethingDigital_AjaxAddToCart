@@ -37,7 +37,7 @@
                             url: form.action,
                             dataType: 'json',
                             type: 'post',
-                            data: $('#product_addtocart_form').serialize()
+                            data: form.serialize()
                         })
                             .done(function(data){
                                 var $updatedCart   = $(data.minicart_head);
@@ -50,7 +50,7 @@
                                 // Do we need to update the product form's action?
                                 // This allows one to continue configuring, for example.
                                 if (data.product_addtocart_form_action) {
-                                    $('#product_addtocart_form').prop('action', data.product_addtocart_form_action);
+                                    form.prop('action', data.product_addtocart_form_action);
                                 }
 
                                 $body.removeClass('locked');
