@@ -16,17 +16,18 @@
 
             var $body = $('body');
 
-            productAddToCartForm.submit = productAddToCartForm.submit.wrap(function(button, url){
+            productAddToCartForm.submit = productAddToCartForm.submit.wrap(function($super, button, url) {
                 var form   = this.form;
                 var oldUrl = form.action;
                 var e      = null;
+                var args   = {button: button, url: url, form: form};
                 var weHaveALoadingModal = typeof loadingModal !== 'undefined'; // check if site has a loadingModal
 
                 if (this.validator.validate()) {
                     $body.addClass('locked');
 
                     // Fire submit event on submit -- useful for custom loaders
-                    $(document).trigger("sd_ajaxaddtocart:submit");
+                    $(document).trigger("sd_ajaxaddtocart:submit", [args]);
 
                     if (weHaveALoadingModal && settings.triggerLoadingModal) {
                       loadingModal.show();
@@ -81,7 +82,7 @@
                                 }
 
                                 // Fire success event on success and pass through data returned from response
-                                $(document).trigger("sd_ajaxaddtocart:success", data);
+                                $(document).trigger("sd_ajaxaddtocart:success", [data, args]);
 
                                 // Show our popup
                                 if (!settings.scroll && settings.triggerPopup) {
@@ -134,7 +135,7 @@
                                 }
 
                                 // Fire success event on failure and pass through data returned from response
-                                $(document).trigger("sd_ajaxaddtocart:failure", data);
+                                $(document).trigger("sd_ajaxaddtocart:failure", [data, args]);
 
                                 //unset the modal block
                                 if (weHaveALoadingModal && settings.triggerLoadingModal) {
