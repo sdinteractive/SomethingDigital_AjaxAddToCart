@@ -4,6 +4,11 @@
     <SomethingDigital_AjaxAddToCart>
       <active>true</active>
       <codePool>community</codePool>
+
+      <depends>
+        <Mage_Catalog />
+        <Mage_Checkout />
+      </depends>
     </SomethingDigital_AjaxAddToCart>
   </modules>
 </config>
