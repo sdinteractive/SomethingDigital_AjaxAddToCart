@@ -182,8 +182,11 @@ class SomethingDigital_AjaxAddToCart_Model_Observer
   protected function _getMinicartHtml($controllerAction)
   {
     $controllerAction->loadLayout();
-    $sidebar = $controllerAction->getLayout()->getBlock('minicart_head')->toHtml();
-    return '<div class="header-minicart minicart--fixed">' . $sidebar . '</div>';
+    $sidebar = $controllerAction->getLayout()->getBlock('minicart_head');
+    if ($sidebar) {
+        return '<div class="header-minicart minicart--fixed">' . $sidebar->toHtml() . '</div>';
+    }
+    return '';
   }
 
   protected function _getCoreHelper()
