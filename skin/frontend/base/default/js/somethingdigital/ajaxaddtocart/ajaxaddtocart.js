@@ -22,17 +22,18 @@
 
             var $body = $('body');
 
-            productAddToCartForm.submit = productAddToCartForm.submit.wrap(function(button, url){
+            productAddToCartForm.submit = productAddToCartForm.submit.wrap(function($super, button, url) {
                 var form   = this.form;
                 var oldUrl = form.action;
                 var e      = null;
+                var args   = {button: button, url: url, form: form};
                 var weHaveALoadingModal = typeof loadingModal !== 'undefined'; // check if site has a loadingModal
 
                 if (this.validator.validate()) {
                     $body.addClass('locked');
 
                     // Fire submit event on submit -- useful for custom loaders
-                    $(document).trigger("sd_ajaxaddtocart:submit");
+                    $(document).trigger("sd_ajaxaddtocart:submit", [args]);
 
                     if (weHaveALoadingModal && settings.triggerLoadingModal) {
                       loadingModal.show();
@@ -43,7 +44,7 @@
                             url: form.action,
                             dataType: 'json',
                             type: 'post',
-                            data: $('#product_addtocart_form').serialize()
+                            data: form.serialize()
                         })
                             .done(function(data){
                                 var $updatedCart   = $(data.minicart_head);
@@ -56,7 +57,7 @@
                                 // Do we need to update the product form's action?
                                 // This allows one to continue configuring, for example.
                                 if (data.product_addtocart_form_action) {
-                                    $('#product_addtocart_form').prop('action', data.product_addtocart_form_action);
+                                    form.prop('action', data.product_addtocart_form_action);
                                 }
 
                                 $body.removeClass('locked');
@@ -87,7 +88,7 @@
                                 }
 
                                 // Fire success event on success and pass through data returned from response
-                                $(document).trigger("sd_ajaxaddtocart:success", data);
+                                $(document).trigger("sd_ajaxaddtocart:success", [data, args]);
 
                                 // Show our popup
                                 if (!settings.scroll && settings.triggerPopup) {
@@ -173,7 +174,7 @@
                                 }
 
                                 // Fire success event on failure and pass through data returned from response
-                                $(document).trigger("sd_ajaxaddtocart:failure", data);
+                                $(document).trigger("sd_ajaxaddtocart:failure", [data, args]);
 
                                 //unset the modal block
                                 if (weHaveALoadingModal && settings.triggerLoadingModal) {
