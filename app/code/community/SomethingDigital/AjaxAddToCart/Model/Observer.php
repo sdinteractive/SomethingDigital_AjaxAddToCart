@@ -152,6 +152,18 @@ class SomethingDigital_AjaxAddToCart_Model_Observer
     $checkoutMessages = $checkoutSession->getMessages(true);
     /** @var Mage_Core_Model_Message_Abstract[] $checkoutErrors */
     $checkoutErrors = $checkoutMessages->getErrors();
+    /** @var Mage_Core_Model_Message_Abstract[] $checkoutErrors */
+    $checkoutNotices = $checkoutMessages->getItemsByType(Mage_Core_Model_Message::NOTICE);
+
+    if (!empty($checkoutNotices) && $result['status'] == self::STATUS_SUCCESS) {
+      $specifyOptionsMessage = Mage::getModel('catalog/product_type_configurable')->getSpecifyOptionMessage();
+      foreach ($checkoutNotices as $notice) {
+        if ($notice->getText() == $specifyOptionsMessage) {
+          // This is really an error, let's make sure we surface it.
+          $checkoutErrors[] = $notice;
+        }
+      }
+    }
 
     // If there were errors, let's change the response.
     if (!empty($checkoutErrors) && $result['status'] == self::STATUS_SUCCESS) {

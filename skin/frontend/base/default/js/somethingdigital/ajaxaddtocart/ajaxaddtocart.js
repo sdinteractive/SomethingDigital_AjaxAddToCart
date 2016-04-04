@@ -1,6 +1,11 @@
 'use strict';
 
 (function($){
+    var getDefaultErrorHtml = function() {
+      return '<ul class="messages"><li class="error-msg"><ul><li class="out-of-stock-error"><span>' +
+        Translator.translate('Please check your network connection and try again.') +
+        '</span></li></ul></li></li></ul>';
+    };
 
     window.sdAjaxaddtocart = {
         init:function(productAddToCartForm, options) {
@@ -143,10 +148,12 @@
                             })
                             .fail(function(jqXHR){
                                 var data = jqXHR.responseJSON;
+                                var errorMessages = data ? data.message : getDefaultErrorHtml();
+
                                 // display failure message
                                 // if add to cart from quickview
                                 if (typeof(window.sdQuickView) == "object" && $('#sd-quickview').is(':visible')) {
-                                    window.sdQuickview.content.prepend(data.message);
+                                    window.sdQuickview.content.prepend(errorMessages);
 
                                     //remove the failure message after 5s
                                     window.sdQuickview.content.find('.messages')
@@ -155,7 +162,7 @@
                                             $(this).remove();
                                         });
                                 } else {
-                                    $('.col-main').prepend(data.message);
+                                    $('.col-main').prepend(errorMessages);
 
                                     //remove the failure message after 5s
                                     $('.col-main .messages')
