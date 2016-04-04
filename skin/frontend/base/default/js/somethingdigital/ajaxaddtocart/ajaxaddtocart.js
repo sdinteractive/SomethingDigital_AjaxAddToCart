@@ -10,6 +10,7 @@
                 scrollDuration: 250,
                 triggerPopup: true,
                 popupDuration: 0, // 0 means infinite -- for accessibility concerns. USe 1+ for specific duration
+                popupTrackFocus: true,
                 triggerMinicart: true,
                 triggerLoadingModal: true
             }, options);
@@ -91,6 +92,7 @@
 
                                   // Clone our template
                                   var $notification = $notificationTemplate.clone();
+                                  var fadeTimeout = null;
 
                                   if (data.message) {
                                     $notification.find('.sd-ajax-add-to-cart-popup__message').text(data.message);
@@ -99,15 +101,45 @@
                                   $notification.find('.sd-ajax-add-to-cart-popup__close').on('click', function(e) {
                                     e.preventDefault();
                                     $notification.hide();
+                                    clearTimeout(fadeTimeout);
+                                    fadeTimeout = null;
                                   });
 
-                                  if(settings.popupDuration === 0) {
-                                    $notification.appendTo($notificationShowcase);
-                                  } else {
-                                    $notification.appendTo($notificationShowcase).delay(settings.popupDuration * 1000).fadeOut();
+                                  $notification.appendTo($notificationShowcase);
+                                  if (settings.popupTrackFocus) {
+                                    // This marks the notification element as focusable, although not in the tab order.
+                                    $notification.attr('tabindex', '-1').focus();
+                                  }
+
+                                  var doFade = function() {
+                                    var $active = $(document.activeElement);
+                                    if ($active.closest($notificationShowcase).length != 0 && settings.popupTrackFocus) {
+                                      // We're focused in the notification.  Wait for it to blur.
+                                      $active.one('blur', tryFadeOnBlur);
+                                    } else {
+                                      $notification.fadeOut();
+                                    }
+                                  };
+                                  var tryFadeOnBlur = function() {
+                                    // If they closed, we're done.  Just ignore.
+                                    if (fadeTimeout === null) {
+                                      return;
+                                    }
+
+                                    var $active = $(document.activeElement);
+                                    if ($active.closest($notificationShowcase).length != 0 && settings.popupTrackFocus) {
+                                      // We're STILL focused in the notification.  Wait yet more.
+                                      $active.one('blur', tryFadeOnBlur);
+                                    } else {
+                                      // Okay, now let's do the timeout again.  We'll check again if they refocus.
+                                      fadeTimeout = setTimeout(doFade, settings.popupDuration * 1000);
+                                    }
+                                  };
+
+                                  if (settings.popupDuration !== 0) {
+                                    fadeTimeout = setTimeout(doFade, settings.popupDuration * 1000);
                                   }
                                 }
-
                             })
                             .fail(function(jqXHR){
                                 var data = jqXHR.responseJSON;
