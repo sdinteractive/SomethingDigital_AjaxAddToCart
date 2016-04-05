@@ -107,11 +107,13 @@
                                   $notification.find('.sd-ajax-add-to-cart-popup__close').on('click', function(e) {
                                     e.preventDefault();
                                     $notification.hide();
+                                    $(document).trigger('sd_ajaxaddtocart:popup-close', ['sd_ajaxaddtocart:popup', $notification]);
                                     clearTimeout(fadeTimeout);
                                     fadeTimeout = null;
                                   });
 
                                   $notification.appendTo($notificationShowcase);
+                                  $(document).trigger('sd_ajaxaddtocart:popup-open', ['sd_ajaxaddtocart:popup', $notification]);
                                   if (settings.popupTrackFocus) {
                                     // This marks the notification element as focusable, although not in the tab order.
                                     $notification.attr('tabindex', '-1').focus();
@@ -123,6 +125,7 @@
                                       // We're focused in the notification.  Wait for it to blur.
                                       $active.one('blur', tryFadeOnBlur);
                                     } else {
+                                      $(document).trigger('sd_ajaxaddtocart:popup-close', ['sd_ajaxaddtocart:popup', $notification]);
                                       $notification.fadeOut();
                                     }
                                   };
