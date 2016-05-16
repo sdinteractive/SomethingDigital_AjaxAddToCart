@@ -196,7 +196,8 @@ class SomethingDigital_AjaxAddToCart_Model_Observer
     $controllerAction->loadLayout();
     $sidebar = $controllerAction->getLayout()->getBlock('minicart_head');
     if ($sidebar) {
-        return '<div class="header-minicart minicart--fixed">' . $sidebar->toHtml() . '</div>';
+        $sidebarHtml = Mage::getSingleton('core/url')->sessionUrlVar($sidebar->toHtml());
+        return '<div class="header-minicart minicart--fixed">' . $sidebarHtml . '</div>';
     }
     return '';
   }
