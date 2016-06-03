@@ -57,7 +57,7 @@
                                 // Do we need to update the product form's action?
                                 // This allows one to continue configuring, for example.
                                 if (data.product_addtocart_form_action) {
-                                    form.prop('action', data.product_addtocart_form_action);
+                                    $(form).prop('action', data.product_addtocart_form_action);
                                 }
 
                                 $body.removeClass('locked');
