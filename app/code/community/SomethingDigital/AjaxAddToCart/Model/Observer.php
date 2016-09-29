@@ -156,9 +156,12 @@ class SomethingDigital_AjaxAddToCart_Model_Observer
     $checkoutNotices = $checkoutMessages->getItemsByType(Mage_Core_Model_Message::NOTICE);
 
     if (!empty($checkoutNotices) && $result['status'] == self::STATUS_SUCCESS) {
-      $specifyOptionsMessage = Mage::getModel('catalog/product_type_configurable')->getSpecifyOptionMessage();
+      $specifyOptionsMessageArray = array (
+        Mage::getModel('catalog/product_type_configurable')->getSpecifyOptionMessage(), 
+        Mage::helper('catalog')->__('Please specify the quantity of product(s).')
+      );
       foreach ($checkoutNotices as $notice) {
-        if ($notice->getText() == $specifyOptionsMessage) {
+        if (in_array($notice->getText(), $specifyOptionsMessageArray)) {
           // This is really an error, let's make sure we surface it.
           $checkoutErrors[] = $notice;
         }
