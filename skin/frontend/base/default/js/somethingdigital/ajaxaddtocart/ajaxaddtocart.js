@@ -158,7 +158,12 @@
                                 // if add to cart from quickview
                                 if (typeof(window.sdQuickView) == "object" && $('#sd-quickview').is(':visible')) {
                                     window.sdQuickview.content.prepend(errorMessages);
-
+                                    
+                                    // autoscroll up to the error message
+                                    $('html, body').animate({
+                                        scrollTop: $('.messages').offset().top - 100
+                                    }, 'fast');
+                                    
                                     //remove the failure message after 5s
                                     window.sdQuickview.content.find('.messages')
                                         .delay(5000)
@@ -168,6 +173,11 @@
                                 } else {
                                     $('.col-main').prepend(errorMessages);
 
+                                    // autoscroll up to the error message
+                                    $('html, body').animate({
+                                        scrollTop: $('.messages').offset().top - 100
+                                    }, 'fast');
+                                    
                                     //remove the failure message after 5s
                                     $('.col-main .messages')
                                         .delay(5000)
