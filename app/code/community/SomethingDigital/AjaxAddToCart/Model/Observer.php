@@ -134,7 +134,7 @@ class SomethingDigital_AjaxAddToCart_Model_Observer
       }
 
       //assemble the message
-      $message = $this->_getCoreHelper()->__($successMessage, $this->_getCoreHelper()->htmlEscape($product->getName()));
+      $message = $this->_getCoreHelper()->__($successMessage, $product->getName());
       $result['status'] = self::STATUS_SUCCESS;
       $result['message'] = $message;
       $result['minicart_head'] = $this->_getMinicartHtml($controllerAction);
