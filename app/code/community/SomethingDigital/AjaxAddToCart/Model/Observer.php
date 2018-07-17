@@ -94,7 +94,7 @@ class SomethingDigital_AjaxAddToCart_Model_Observer
   protected function _sendAjaxResponse($response, $result)
   {
     $response->clearAllHeaders();
-    $responseCode = $result['status'] === self::STATUS_SUCCESS ? 200 : 520;
+    $responseCode = $result['status'] === self::STATUS_SUCCESS ? 200 : 500;
     $response->setHttpResponseCode($responseCode);
 
     $response->clearHeaders()
